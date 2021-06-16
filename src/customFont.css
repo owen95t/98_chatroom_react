@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'W95FA';
+    src: url("./fonts/w95fa.woff") format('woff');
+    src: url("./fonts/w95fa.woff2") format('woff2');
+    font-style: normal;
+    font-weight: normal;
+}
+
+* {
+    -webkit-font-smoothing: antialiased;
+}
