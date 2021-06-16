@@ -5,7 +5,28 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
     const [messages, setMessages] = useState([])
     const messageRef = useRef()
     const [btnDisabled, setBtnDisabled] = useState(true)
+    const [me, setMe] = useState('')
 
+    //MAIN USEEFFECT
+    useEffect(() => {
+        //connect()
+        //SET OWNER OF ROOM
+        setMe(name)
+
+
+        if (isJoin && !isCreate) {
+            console.log('JOIN')
+            //emit
+        }else if (!isJoin && isCreate) {
+            console.log('CREATE')
+            //emit
+        }
+
+        return () => {
+            //On destroy
+            setMe('')
+        };
+    })
     //Scroll bottom into view
     useEffect(() => {
         messageRef.current.scrollIntoView({behavior: 'smooth'})
@@ -51,6 +72,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
                 <div className="window-body flex-container">
                     <div className='textbox' style={{width: '340px', height: '400px', fontSize: '14px'}}>
                         {/*Put in messages here*/}
+                        {/*CHECK IF MESSAGE FROM ME OR FROM OTHER.*/}
                         <ul style={{listStyleType: 'none', marginLeft: '5px', marginTop: '0px', padding: '0'}}>
                             {messages.map((msg, i) => (
                                 <li key={i}><p style={{marginBottom: '5px', marginTop: '8px'}}> <span style={{fontWeight: 'bold'}}>USER - </span><span style={{fontWeight: 'normal'}}>{msg}</span></p></li>
