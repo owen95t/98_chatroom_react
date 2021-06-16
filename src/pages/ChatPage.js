@@ -17,7 +17,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
         if (isJoin && !isCreate) {
             console.log('JOIN')
             //emit
-        }else if (!isJoin && isCreate) {
+        } else if (!isJoin && isCreate) {
             console.log('CREATE')
             //emit
         }
@@ -33,9 +33,9 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
     })
     //SET SEND BTN TO DISABLED WHEN NO MESSAGE
     useEffect(() => {
-        if (message.length > 0){
+        if (message.trim().length > 0) {
             setBtnDisabled(false)
-        }else if (message.length === 0) {
+        } else if (message.trim().length === 0) {
             setBtnDisabled(true)
         }
     }, [message])
@@ -46,10 +46,12 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
             sendMessage(message);
         }
     }
+
     // SEND ON CLICK SEND BUTTON
     function handleClick() {
         sendMessage(message)
     }
+
     //HANDLE SOCKET SEND OP
     function sendMessage(msg) {
         // socket.emit('sendMessage', msg)
@@ -75,7 +77,14 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
                         {/*CHECK IF MESSAGE FROM ME OR FROM OTHER.*/}
                         <ul style={{listStyleType: 'none', marginLeft: '5px', marginTop: '0px', padding: '0'}}>
                             {messages.map((msg, i) => (
-                                <li key={i}><p style={{marginBottom: '5px', marginTop: '8px'}}> <span style={{fontWeight: 'bold'}}>USER - </span><span style={{fontWeight: 'normal'}}>{msg}</span></p></li>
+                                <li key={i}>
+                                    <p
+                                        style={{marginBottom: '5px', marginTop: '8px'}}
+                                    >
+                                        <span style={{fontWeight: 'bold'}}>USER - </span>
+                                        <span style={{fontWeight: 'normal'}}>{msg}</span>
+                                    </p>
+                                </li>
                             ))}
                         </ul>
                         <div ref={messageRef}/>
@@ -88,12 +97,24 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
                             onKeyPress={e => handleKey(e)}
                             cols='40'
                             rows='4'
-                            style={{paddingTop: '8px', paddingBottom: '8px', paddingLeft: '8px', webkitFontSmoothing: 'antialiased', fontSize: '14px'}}
+                            style={{
+                                paddingTop: '8px',
+                                paddingBottom: '8px',
+                                paddingLeft: '8px',
+                                webkitFontSmoothing: 'antialiased',
+                                fontSize: '14px'
+                            }}
                         />
                         <button
                             disabled={btnDisabled}
                             onClick={handleClick}
-                            style={{webkitFontSmoothing: 'antialiased', paddingTop: '33px', paddingBottom: '33px', marginLeft: '5px', fontSize: '14px'}}
+                            style={{
+                                webkitFontSmoothing: 'antialiased',
+                                paddingTop: '33px',
+                                paddingBottom: '33px',
+                                marginLeft: '5px',
+                                fontSize: '14px'
+                            }}
                         >
                             Send
                         </button>

@@ -19,6 +19,8 @@ function App() {
   const [join, setJoin] = useState(false)
   const [create, setCreate] = useState(false)
   const [auth, setAuth] = useState(false)
+  const [errorMsg, setErrorMsg] = useState('')
+  const [showError, setShowError] = useState(false)
 
   const handleNameChange = (e) => {
     //console.log('HandleSetName: ' + e.target.value)
@@ -62,6 +64,15 @@ function App() {
     }else{
       next()
     }
+  }
+
+  function handleError(msg) {
+    setErrorMsg(msg)
+    setShowError(true)
+  }
+
+  function closeError() {
+    setShowError(false)
   }
 
   return (
@@ -125,6 +136,20 @@ function App() {
           </Switch>
         </GuardProvider>
       </Router>
+      {showError ?
+          <div className='window centred' style={{width: '350px'}}>
+            <div className="title-bar">
+              <div className="title-bar-text">Error</div>
+              <div className="title-bar-controls">
+                <button aria-label="Close" onClick={closeError}/>
+              </div>
+              <div className='window-body' style={{height: '250px'}}>
+                {errorMsg}
+              </div>
+            </div>
+          </div>
+          : <></>
+      }
     </div>
   );
 }
