@@ -31,6 +31,14 @@ function App() {
     setRoomID(e.target.value.toUpperCase())
   }
 
+  function clear(){
+    setRoomID('')
+    setName('')
+    setJoin(false)
+    setCreate(false)
+    setAuth(false)
+  }
+
   const handleSetRoomID = (room) => {
     setRoomID(room)
   }
@@ -117,6 +125,7 @@ function App() {
                         isJoin={join}
                         isCreate={create}
                         onRoomChange={handleSetRoomID}
+                        onExit={clear}
                     />
                 )}
             />

@@ -2,7 +2,7 @@ import {useEffect, useRef, useState} from "react";
 import socket from '../socket/socket'
 import {Helmet} from "react-helmet";
 
-const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
+const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange, onExit}) => {
     const [message, setMessage] = useState('')
     const [messages, setMessages] = useState([])
     const messageRef = useRef()
@@ -19,17 +19,19 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
         if (isJoin && !isCreate) {
             console.log('JOIN')
             socket.emit('join', {name, room: roomID})
+            setLoading(true)
         } else if (!isJoin && isCreate) {
             console.log('CREATE')
             socket.emit('create', name)
+            setLoading(true)
         }
     }, [])
 
-    useEffect(() => {
-        if (!roomID || roomID === '') {
-            setLoading(true)
-        }
-    }, [roomID])
+    // useEffect(() => {
+    //     if (!roomID || roomID === '') {
+    //         setLoading(true)
+    //     }
+    // }, [roomID])
 
     useEffect(() => {
         socket.on('roomID', room => {
@@ -69,6 +71,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
             setUsers([])
             setMessages([])
             setMessage('')
+            onExit() //Clears room and name
             socket.disconnect()
         };
     }, [])
