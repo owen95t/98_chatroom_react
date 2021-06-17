@@ -4,6 +4,7 @@ import {useState} from "react";
 // import './customFont.css'
 import {
   BrowserRouter as Router,
+    HashRouter as HRouter,
   Switch,
   Route,
 } from "react-router-dom";
@@ -85,7 +86,7 @@ function App() {
 
   return (
     <div className="App">
-      <Router>
+      <HRouter basename='/'>
         <GuardProvider guards={[requireName]}>
           <Switch>
             <Route
@@ -144,7 +145,7 @@ function App() {
             {/*/>*/}
           </Switch>
         </GuardProvider>
-      </Router>
+      </HRouter>
       {showError ?
           <div className='window centred' style={{width: '350px'}}>
             <div className="title-bar">
