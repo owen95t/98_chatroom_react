@@ -2,10 +2,15 @@ import '98.css'
 import '../customFont.css'
 
 import {Link} from 'react-router-dom'
+import {Helmet} from "react-helmet";
 
 const HomePage = () => {
     return (
-        <div className='window centred' style={{width: '365px', height: '430px'}}>
+        <div>
+            <Helmet>
+                <title>Chat95 - Home</title>
+            </Helmet>
+            <div className='window centred' style={{width: '365px', height: '430px'}}>
             <div className="title-bar">
                 <div className="title-bar-text">Chat95</div>
                 <div className="title-bar-controls">
@@ -39,6 +44,7 @@ const HomePage = () => {
                     <button className='button-style' style={{webkitFontSmoothing: 'antialiased'}}>Join Chat</button>
                 </Link>
             </div>
+        </div>
         </div>
     )
 }

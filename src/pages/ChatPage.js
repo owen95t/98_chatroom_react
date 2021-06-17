@@ -1,5 +1,6 @@
 import {useEffect, useRef, useState} from "react";
 import socket from '../socket/socket'
+import {Helmet} from "react-helmet";
 
 const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
     const [message, setMessage] = useState('')
@@ -8,6 +9,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
     const [btnDisabled, setBtnDisabled] = useState(true)
     const [me, setMe] = useState('')
     const [users, setUsers] = useState([])
+    const [loading, setLoading] = useState(false)
 
     //MAIN USEEFFECT
     useEffect(() => {
@@ -24,8 +26,15 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
     }, [])
 
     useEffect(() => {
+        if (!roomID || roomID === '') {
+            setLoading(true)
+        }
+    }, [roomID])
+
+    useEffect(() => {
         socket.on('roomID', room => {
             onRoomChange(room)
+            setLoading(false)
         })
         socket.on('message', ({user, message}) => {
             setMessages(messages => [...messages, {user, message}])
@@ -89,6 +98,9 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
 
     return (
         <div>
+            <Helmet>
+                <title>Chat95 - Chat Room</title>
+            </Helmet>
             <div className='window centred' style={{width: '365px', height: '550px'}}>
                 <div className="title-bar">
                     <div className="title-bar-text">Chat95 - Chat Room - ID: {roomID}</div>
@@ -110,7 +122,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
                                 </li>
                             ))}
                         </ul>
-                        <div ref={messageRef} />
+                        <div ref={messageRef}/>
                     </div>
                     <div className='bottom-container'>
                         <textarea
@@ -149,12 +161,22 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
                     <p style={{fontSize: '14px'}}>Room ID: {roomID}</p>
                     <p style={{fontSize: '14px'}}>Users In Room:</p>
                     <ul>
-                    {users.map((name, i) => (
-                        <li key={i} style={{fontSize: '14px'}}>{name}</li>
-                    ))}
+                        {users.map((name, i) => (
+                            <li key={i} style={{fontSize: '14px'}}>{name}</li>
+                        ))}
                     </ul>
                 </div>
             </div>
+            {loading ?
+                <div className='window warn-center' style={{width: '200px', height: '50px'}}>
+                    <div className='title-bar'>
+                        <div className='title-bar-text'>Loading...</div>
+                    </div>
+                    <div className='window-body'>
+                        Loading....
+                    </div>
+                </div> :
+                <></>}
         </div>
     )
 }

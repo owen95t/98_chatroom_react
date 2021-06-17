@@ -1,8 +1,13 @@
 import {Link} from "react-router-dom";
 import '../customFont.css'
+import {Helmet} from "react-helmet";
 
 const JoinPage = ({name, roomID, onNameChange, onRoomChange, onEnter}) => {
     return (
+        <div>
+            <Helmet>
+                <title>Chat 95 - Join a room</title>
+            </Helmet>
         <div className='window centred' style={{width: '365px', height: '300px'}}>
             <div className="title-bar">
                 <div className="title-bar-text">Chat95</div>
@@ -39,6 +44,7 @@ const JoinPage = ({name, roomID, onNameChange, onRoomChange, onEnter}) => {
                     <button onClick={onEnter} className='button-style' style={{marginTop: '15px', webkitFontSmoothing: 'antialiased'}}>Join Chat</button>
                 </Link>
             </div>
+        </div>
         </div>
     )
 }

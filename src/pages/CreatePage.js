@@ -1,8 +1,13 @@
 import {Link} from "react-router-dom";
 import '../customFont.css'
+import {Helmet} from "react-helmet";
 
 const CreatePage = ({name, onNameChange, handleCreate}) => {
     return (
+        <div>
+            <Helmet>
+                <title>Chat95 - Create a room</title>
+            </Helmet>
         <div className='window centred' style={{width: '365px', height: '250px'}}>
             <div className="title-bar">
                 <div className="title-bar-text">Chat95</div>
@@ -37,6 +42,7 @@ const CreatePage = ({name, onNameChange, handleCreate}) => {
                     </button>
                 </Link>
             </div>
+        </div>
         </div>
     )
 }
