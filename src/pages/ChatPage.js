@@ -1,4 +1,5 @@
 import {useEffect, useRef, useState} from "react";
+import socket from '../socket/socket'
 
 const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
     const [message, setMessage] = useState('')
@@ -6,31 +7,43 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
     const messageRef = useRef()
     const [btnDisabled, setBtnDisabled] = useState(true)
     const [me, setMe] = useState('')
+    const [users, setUsers] = useState([])
 
     //MAIN USEEFFECT
     useEffect(() => {
-        //connect()
-        //SET OWNER OF ROOM
+        socket.connect()
         setMe(name)
-
 
         if (isJoin && !isCreate) {
             console.log('JOIN')
-            //emit
+            socket.emit('join', {name, room: roomID})
         } else if (!isJoin && isCreate) {
             console.log('CREATE')
-            //emit
+            socket.emit('create', name)
         }
+    }, [])
 
-        return () => {
-            //On destroy
-            setMe('')
-        };
-    })
+    useEffect(() => {
+        socket.on('roomID', room => {
+            onRoomChange(room)
+        })
+        socket.on('message', ({user, message}) => {
+            setMessages(messages => [...messages, {user, message}])
+        })
+        socket.on('event-message', response => {
+            setMessages(messages => [...messages, {user: 'server', message: response}])
+        })
+        socket.on('user-list', response => {
+            setUsers([])
+            setUsers(response)
+        })
+    }, [])
+
     //Scroll bottom into view
     useEffect(() => {
         messageRef.current.scrollIntoView({behavior: 'smooth'})
-    })
+    }, [])
+
     //SET SEND BTN TO DISABLED WHEN NO MESSAGE
     useEffect(() => {
         if (message.trim().length > 0) {
@@ -39,6 +52,17 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
             setBtnDisabled(true)
         }
     }, [message])
+
+    useEffect(() => {
+        return () => {
+            //On destroy
+            setMe('')
+            setUsers([])
+            setMessages([])
+            setMessage('')
+            socket.disconnect()
+        };
+    }, [])
 
     // SEND ON ENTER
     function handleKey(e) {
@@ -54,12 +78,13 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
 
     //HANDLE SOCKET SEND OP
     function sendMessage(msg) {
-        // socket.emit('sendMessage', msg)
         if (msg == null || msg.length === 0) {
             return
         }
-        setMessages(messages => [...messages, msg]);
+        socket.emit('sendMessage', msg)
+        setMessages(messages => [...messages, {user: me, message: msg}]);
         setMessage('')
+        console.log(messages)
     }
 
     return (
@@ -76,13 +101,11 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
                         {/*Put in messages here*/}
                         {/*CHECK IF MESSAGE FROM ME OR FROM OTHER.*/}
                         <ul style={{listStyleType: 'none', marginLeft: '5px', marginTop: '0px', padding: '0'}}>
-                            {messages.map((msg, i) => (
+                            {messages.map((msgObj, i) => (
                                 <li key={i}>
-                                    <p
-                                        style={{marginBottom: '5px', marginTop: '8px'}}
-                                    >
-                                        <span style={{fontWeight: 'bold'}}>USER - </span>
-                                        <span style={{fontWeight: 'normal'}}>{msg}</span>
+                                    <p style={{marginBottom: '5px', marginTop: '8px'}}>
+                                        <span style={{fontWeight: 'bold'}}>{msgObj.user} - </span>
+                                        <span style={{fontWeight: 'normal'}}>{msgObj.message}</span>
                                     </p>
                                 </li>
                             ))}
@@ -121,10 +144,16 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
                     </div>
                 </div>
             </div>
-            <div className='window centred' style={{marginTop: '560px', width: '365px', height: '125px'}}>
+            <div className='window centred' style={{marginTop: '560px', width: '365px', height: '175px'}}>
                 <div className='window-body'>
-                    <p style={{fontSize: '14px'}}>Room ID: </p>
+                    <p style={{fontSize: '14px'}}>Room ID: {roomID}</p>
                     <p style={{fontSize: '14px'}}>Users In Room:</p>
+                    <ul>
+                    {users.map((name, i) => (
+                        <li key={i} style={{fontSize: '14px'}}>{name}</li>
+                    ))}
+                    </ul>
+                    <div ref={messageRef}/>
                 </div>
             </div>
         </div>
