@@ -42,7 +42,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
     //Scroll bottom into view
     useEffect(() => {
         messageRef.current.scrollIntoView({behavior: 'smooth'})
-    }, [])
+    })
 
     //SET SEND BTN TO DISABLED WHEN NO MESSAGE
     useEffect(() => {
@@ -110,7 +110,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
                                 </li>
                             ))}
                         </ul>
-                        <div ref={messageRef}/>
+                        <div ref={messageRef} />
                     </div>
                     <div className='bottom-container'>
                         <textarea
@@ -153,7 +153,6 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange}) => {
                         <li key={i} style={{fontSize: '14px'}}>{name}</li>
                     ))}
                     </ul>
-                    <div ref={messageRef}/>
                 </div>
             </div>
         </div>
