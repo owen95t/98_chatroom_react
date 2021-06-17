@@ -28,7 +28,7 @@ function App() {
   }
 
   const handleRoomIDChange = (e) => {
-    setRoomID(e.target.value)
+    setRoomID(e.target.value.toUpperCase())
   }
 
   const handleSetRoomID = (room) => {
