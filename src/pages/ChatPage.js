@@ -66,6 +66,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange, onExit}) => {
 
     useEffect(() => {
         return () => {
+            console.log('onExit')
             //On destroy
             setMe('')
             setUsers([])
@@ -96,7 +97,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange, onExit}) => {
         socket.emit('sendMessage', msg)
         setMessages(messages => [...messages, {user: me, message: msg}]);
         setMessage('')
-        console.log(messages)
+        //console.log(messages)
     }
 
     return (
