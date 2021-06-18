@@ -6,7 +6,7 @@ const JoinPage = ({name, roomID, onNameChange, onRoomChange, onEnter}) => {
     return (
         <div>
             <Helmet>
-                <title>Chat 95 - Join a room</title>
+                <title>Chat95 - Join a room</title>
             </Helmet>
         <div className='window centred' style={{width: '365px', height: '300px'}}>
             <div className="title-bar">

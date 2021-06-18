@@ -47,6 +47,7 @@ const ChatPage = ({name, roomID, isJoin, isCreate, onRoomChange, onExit}) => {
         socket.on('user-list', response => {
             setUsers([])
             setUsers(response)
+            setLoading(false)
         })
     }, [])
 
