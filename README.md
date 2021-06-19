@@ -1,3 +1,36 @@
+# Welcome to Chat95
+
+Made with 98.css
+
+Live on: 
+https://chat95.netlify.app
+
+### Backend: 
+https://github.com/owen95t/socket_io_express
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
