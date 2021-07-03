@@ -1,8 +1,12 @@
 import {Link} from "react-router-dom";
 import '../customFont.css'
 import {Helmet} from "react-helmet";
+import {useEffect} from "react";
 
-const JoinPage = ({name, roomID, onNameChange, onRoomChange, onEnter}) => {
+const JoinPage = ({name, roomID, onNameChange, onRoomChange, onEnter, handleClear}) => {
+    useEffect(() => {
+        handleClear();
+    }, [])
     return (
         <div>
             <Helmet>

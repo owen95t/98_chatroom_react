@@ -1,8 +1,16 @@
 import {Link} from "react-router-dom";
 import '../customFont.css'
 import {Helmet} from "react-helmet";
+import {useEffect} from "react";
 
-const CreatePage = ({name, onNameChange, handleCreate}) => {
+const CreatePage = ({name, onNameChange, handleCreate, handleClear}) => {
+
+    useEffect(() => {
+        return () => {
+            handleClear()
+        }
+    }, [])
+
     return (
         <div>
             <Helmet>

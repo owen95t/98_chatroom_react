@@ -1,5 +1,7 @@
 # Welcome to Chat95
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/52d6a574-33fc-43d0-98d4-c7937739a376/deploy-status)](https://app.netlify.com/sites/chat95/deploys)
+
 Made with 98.css
 
 Live on: 

@@ -3,7 +3,6 @@ import '98.css'
 import {useState} from "react";
 // import './customFont.css'
 import {
-  BrowserRouter as Router,
     HashRouter as HRouter,
   Switch,
   Route,
@@ -75,10 +74,10 @@ function App() {
     }
   }
 
-  function handleError(msg) {
-    setErrorMsg(msg)
-    setShowError(true)
-  }
+  // function handleError(msg) {
+  //   setErrorMsg(msg)
+  //   setShowError(true)
+  // }
 
   function closeError() {
     setShowError(false)
@@ -100,6 +99,7 @@ function App() {
                         name={name}
                         onNameChange={handleNameChange}
                         handleCreate={handleCreate}
+                        handleClear={clear}
                     />
                 )}
             />
@@ -112,6 +112,7 @@ function App() {
                         onNameChange={handleNameChange}
                         onRoomChange={handleRoomIDChange}
                         onEnter={handleJoin}
+                        handleClear={clear}
                     />
                 )}
             />
