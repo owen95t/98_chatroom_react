@@ -4,7 +4,7 @@ import io from "socket.io-client";
 //     transports: ['websocket'],
 //     autoConnect: false
 // });
-let socket = io("https://gentle-everglades-66889.herokuapp.com/", {
+let socket = io("https://chat95-backend.herokuapp.com/", {
     transports: ['websocket'],
     autoConnect: false
 });
