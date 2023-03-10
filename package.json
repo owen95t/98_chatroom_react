@@ -7,13 +7,15 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "98.css": "^0.1.17",
-    "netlify-cli": "^3.37.37",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
+    "dotenv": "^16.0.3",
+    "netlify-cli": "^13.1.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
     "react-helmet": "^6.1.0",
-    "react-router-dom": "^5.2.0",
+    "react-router": "^6.8.2",
+    "react-router-dom": "^5.3.4",
     "react-router-guards": "^1.0.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.1",
     "socket.io-client": "^4.1.2",
     "web-vitals": "^1.1.2",
     "xp.css": "^0.2.4"
@@ -41,5 +43,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "browser": {
+    "crypto": false,
+    "fs": false,
+    "path": false,
+    "os": false,
+    "net": false,
+    "stream": false,
+    "tls": false
   }
 }

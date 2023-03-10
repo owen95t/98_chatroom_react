@@ -7,7 +7,7 @@ import {
   Switch,
   Route,
 } from "react-router-dom";
-import {GuardedRoute, GuardProvider} from "react-router-guards";
+// import {GuardedRoute, GuardProvider} from "react-router-guards";
 import HomePage from "./pages/HomePage";
 import ChatPage from "./pages/ChatPage";
 import JoinPage from "./pages/JoinPage";
@@ -86,7 +86,7 @@ function App() {
   return (
     <div className="App">
       <HRouter basename='/'>
-        <GuardProvider guards={[requireName]}>
+        {/*<GuardProvider guards={[requireName]}>*/}
           <Switch>
             <Route
                 path='/'
@@ -116,7 +116,7 @@ function App() {
                     />
                 )}
             />
-            <GuardedRoute
+            <Route
                 meta={{auth: true}}
                 path = '/chat'
                 render={(props) => (
@@ -145,7 +145,7 @@ function App() {
             {/*    )}*/}
             {/*/>*/}
           </Switch>
-        </GuardProvider>
+        {/*</GuardProvider>*/}
       </HRouter>
       {showError ?
           <div className='window centred' style={{width: '350px'}}>
